@@ -8,7 +8,7 @@ public class ArrOps {
 		// TODO Auto-generated method stub
 //		int[] arr = takeInput();
 //		display(arr);
-		// int[] arr = { 10, 30, 50, 70, 20 };
+//		// int[] arr = { 10, 30, 50, 70, 20 };
 		// System.out.println(max(arr));
 //		reverse(arr);
 //		display(arr);
@@ -27,11 +27,11 @@ public class ArrOps {
 
 	public static int[] takeInput() {
 		Scanner s = new Scanner(System.in);
-		System.out.println("Enter the length of array");
+		//System.out.println("Enter the length of array");
 		int n = s.nextInt();
 		int[] arr = new int[n];
 		for (int i = 0; i < arr.length; i++) {
-			System.out.println("Enter the value at " + i + " index");
+		//	System.out.println("Enter the value at " + i + " index");
 			arr[i] = s.nextInt();
 		}
 		return arr;
