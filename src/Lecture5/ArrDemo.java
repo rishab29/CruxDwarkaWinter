@@ -57,9 +57,9 @@ public class ArrDemo {
 //		System.out.println(arr[i] + ", " + arr[j]);
 ////
 ////		
-//		System.out.println(arr[i] + ", " + arr[j]);
-//		Swap(arr, i, j);
-//		System.out.println(arr[i] + ", " + arr[j]);
+		System.out.println(arr[i] + ", " + arr[j]);
+		Swap(arr, i, j);
+		System.out.println(arr[i] + ", " + arr[j]);
 ////
 ////		
 //		int[] another = arr;
