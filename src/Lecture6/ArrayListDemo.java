@@ -15,6 +15,7 @@ public class ArrayListDemo {
 		list.add(10);
 		System.out.println(list);
 		System.out.println(list.size());
+		list.toString();
 
 		list.add(20);
 		System.out.println(list);

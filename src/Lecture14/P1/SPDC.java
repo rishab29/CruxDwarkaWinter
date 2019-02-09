@@ -1,4 +1,4 @@
-package Lecture12.P1;
+package Lecture14.P1;
 
 public class SPDC extends C{
 	public void Fun(){
