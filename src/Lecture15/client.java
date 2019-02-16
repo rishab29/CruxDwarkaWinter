@@ -4,7 +4,7 @@ public class client {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		LinkedList list=new LinkedList();
+		LinkedList list = new LinkedList();
 //		list.addFirst(10);
 //		list.addFirst(5);
 //		
@@ -27,18 +27,31 @@ public class client {
 //		
 //		System.out.println(list.removeAt(2));
 //		list.display();
-		
+
 		list.addLast(10);
 		list.addLast(20);
 		list.addLast(30);	
 		list.addLast(40);
 		list.addLast(50);
-		
+
 		list.display();
-		
-		list.reversePR();
+//		
+		list.reverseDR();
 		list.display();
-		
+
+//		LinkedList list1 = new LinkedList();
+//		list1.addLast(10);
+//		list1.addLast(40);
+//		list1.addLast(60);
+//		LinkedList list2 = new LinkedList();
+//		list2.addLast(5);
+//		list2.addLast(8);
+//		list2.addLast(25);
+//		list2.addLast(50);
+
+//		LinkedList sorted = list1.merge(list2);
+//		sorted.display();
+
 	}
 
 }

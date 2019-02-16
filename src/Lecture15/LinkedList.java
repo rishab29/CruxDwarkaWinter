@@ -221,4 +221,95 @@ public class LinkedList {
 		reversePR(node.next);
 		node.next.next = node;
 	}
+
+	public int mid() {
+		return this.getMidNode().data;
+	}
+
+	private Node getMidNode() {
+		Node slow = this.head;
+		Node fast = this.head;
+
+		while (fast.next != null && fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+
+		return slow;
+	}
+
+	public int kthNodeFromlast(int k) throws Exception {
+
+		if (k < 0 || k > this.size) {
+			throw new Exception("Invalid index");
+		}
+		Node slow = this.head;
+		Node fast = this.head;
+
+		for (int i = 0; i < k; i++) {
+			fast = fast.next;
+		}
+
+		while (fast != null) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+
+		return slow.data;
+
+	}
+
+	public LinkedList merge(LinkedList other) {
+		LinkedList ans = new LinkedList();
+		Node thishead = this.head;
+		Node otherhead = other.head;
+
+		while (thishead != null && otherhead != null) {
+			if (thishead.data < otherhead.data) {
+				ans.addLast(thishead.data);
+				thishead = thishead.next;
+			} else {
+				ans.addLast(otherhead.data);
+				otherhead = otherhead.next;
+			}
+		}
+
+		while (thishead != null) {
+			ans.addLast(thishead.data);
+			thishead = thishead.next;
+		}
+
+		while (otherhead != null) {
+			ans.addLast(otherhead.data);
+			otherhead = otherhead.next;
+		}
+
+		return ans;
+	}
+
+	public void reverseDR() {
+		HeapMover left = new HeapMover(this.head);
+		this.reverseDR(left, this.head, 0);
+	}
+
+	private void reverseDR(HeapMover left, Node right, int level) {
+		if (right == null) {
+			return;
+		}
+		this.reverseDR(left, right.next, level + 1);
+		if (level >= this.size() / 2) {
+			int temp = left.node.data;
+			left.node.data = right.data;
+			right.data = temp;
+			left.node = left.node.next;
+		}
+	}
+
+	class HeapMover {
+		Node node;
+
+		HeapMover(Node node) {
+			this.node = node;
+		}
+	}
 }
