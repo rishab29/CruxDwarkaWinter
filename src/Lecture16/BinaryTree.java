@@ -238,4 +238,48 @@ public class BinaryTree {
 
 		}
 	}
+	
+	public boolean isBST() {
+		return this.isBST(this.root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+	}
+	
+	private boolean isBST(Node node,int min,int max) {
+		if(node==null)
+			return true;
+		
+		boolean self;
+		if(node.data<max&&node.data>min)
+			self=true;
+		else 
+			self=false;
+		
+		boolean left=isBST(node.left, min,node.data);
+		boolean right=isBST(node.right, node.data, max);
+		
+		if(left&&right&&self)
+			return true;
+		else
+			return false;
+		
+	}
+	
+	public int diameter() {
+		return diameter(this.root);
+	}
+	
+	private int diameter(Node node) {
+		if(node==null)
+			return 0;
+		
+		int totalht=height(node.left)+height(node.right)+2;
+		int leftdia=diameter(node.left);
+		int rightdia=diameter(node.right);
+		
+		return Math.max(totalht,Math.min(leftdia, rightdia) );
+		
+	}
+	
+	
+	
+	
 }

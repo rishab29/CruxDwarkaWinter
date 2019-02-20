@@ -6,7 +6,7 @@ public class Client {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// 50 true 25 true 10 false false true 15 false false true 75 true 6 false false true 9 false false
+	//	50 true 25 true 10 false false true 15 false false true 75 true 6 false false true 9 false false
 		BinaryTree tree = new BinaryTree();
 
 		tree.display();
@@ -27,6 +27,10 @@ public class Client {
 		
 		System.out.println();
 		tree.preOrderIterative();
+		
+		System.out.println(tree.isBST());
+		
+		System.out.println(tree.diameter());
 	}
 
 }
