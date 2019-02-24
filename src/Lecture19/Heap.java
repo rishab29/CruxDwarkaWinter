@@ -11,6 +11,9 @@ public class Heap<T extends Comparable<T>> {
 		this.data = new ArrayList<>();
 	}
 
+	public Heap(T[] items) {
+		
+	}
 	public int size() {
 		return this.data.size();
 	}
@@ -25,7 +28,14 @@ public class Heap<T extends Comparable<T>> {
 	}
 
 	private void upheapify(int ci) {
-
+		if (ci == 0) {
+			return;
+		}
+		int pi = (ci - 1) / 2;
+		if (!isLarger(pi, ci)) {
+			this.swap(pi, ci);
+			this.upheapify(pi);
+		}
 	}
 
 	private void swap(int i, int j) {
@@ -47,18 +57,31 @@ public class Heap<T extends Comparable<T>> {
 		}
 
 	}
-	
+
 	public T remove() {
-		T rv=this.data.get(0);
-		this.swap(0, this.data.size()-1);
-		this.data.remove(this.data.size()-1);
+		T rv = this.data.get(0);
+		this.swap(0, this.data.size() - 1);
+		this.data.remove(this.data.size() - 1);
 		this.downheapify(0);
 		return rv;
-		
+
 	}
-	
+
 	private void downheapify(int pi) {
-		
+		int mi = pi;
+		int lci = 2 * pi + 1;
+		int rci = 2 * pi + 2;
+		if (lci < this.data.size() && isLarger(lci, mi)) {
+			mi = lci;
+		}
+		if (rci < this.data.size() && isLarger(rci, mi)) {
+			mi = rci;
+		}
+
+		if (mi != pi) {
+			this.swap(pi, mi);
+			this.downheapify(mi);
+		}
 	}
 
 	public void display() {
@@ -82,7 +105,7 @@ public class Heap<T extends Comparable<T>> {
 			T rc = this.data.get(rci);
 			str = str + "<=" + rc;
 		} else {
-			str = "<=END" + str;
+			str = str + "<=END";
 		}
 
 		System.out.println(str);
@@ -93,7 +116,6 @@ public class Heap<T extends Comparable<T>> {
 		if (rci < this.data.size()) {
 			this.display(rci);
 		}
-		
-		
+
 	}
 }
