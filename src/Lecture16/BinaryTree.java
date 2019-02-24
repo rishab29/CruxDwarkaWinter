@@ -271,11 +271,11 @@ public class BinaryTree {
 		if(node==null)
 			return 0;
 		
-		int totalht=height(node.left)+height(node.right)+2;
+		int mydia=height(node.left)+height(node.right)+2;
 		int leftdia=diameter(node.left);
 		int rightdia=diameter(node.right);
 		
-		return Math.max(totalht,Math.min(leftdia, rightdia) );
+		return Math.max(mydia,Math.max(leftdia, rightdia) );
 		
 	}
 	
