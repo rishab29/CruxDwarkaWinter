@@ -12,8 +12,19 @@ public class Heap<T extends Comparable<T>> {
 	}
 
 	public Heap(T[] items) {
-		
+		this(false);
+		for (T item : items) {
+			this.data.add(item);
+		}
+		for (int i = (this.data.size() / 2) - 1; i >= 0; i--) {
+			this.downheapify(i);
+		}
 	}
+	
+	public boolean isEmpty() {
+		return this.size()==0;
+	}
+
 	public int size() {
 		return this.data.size();
 	}
