@@ -32,7 +32,7 @@ public class MergeKSortedLists {
 	//	System.out.println(lists);
 		
 		ArrayList<Integer> ans=MergeKLists(lists);
-		System.out.println(lists);
+		System.out.println(ans);
 		
 
 	}
@@ -66,6 +66,11 @@ public class MergeKSortedLists {
 		while(!heap.isEmpty()) {
 			Pair rp=heap.remove();
 			ans.add(rp.data);
+			rp.idxno++;
+			if(rp.idxno<lists.get(rp.listno).size()) {
+				rp.data=lists.get(rp.listno).get(rp.idxno);
+				heap.add(rp);
+			}
 			
 		}
 		
