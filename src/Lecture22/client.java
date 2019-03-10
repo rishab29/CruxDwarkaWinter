@@ -23,7 +23,8 @@ public class client {
 		graph.addEdge("F", "G", 3);
 		graph.addEdge("E", "G", 3);
 
-	 graph.removeEdge("D", "E");
+	//	graph.removeEdge("D", "E");
+		graph.removeEdge("F", "E");
 		// graph.removeVertex("A");
 //		System.out.println(graph.numEdges());
 //		System.out.println(graph.numVertices());
@@ -34,6 +35,13 @@ public class client {
 		graph.bft();
 		System.out.println();
 		graph.dft();
+
+		System.out.println(graph.isConnected());
+		System.out.println(graph.getCC());
+		
+		System.out.println(graph.isBipartite());
+		
+		graph.Dijkstra("A", "G");
 
 	}
 

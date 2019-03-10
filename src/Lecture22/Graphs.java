@@ -1,8 +1,11 @@
 package Lecture22;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.Set;
 
 public class Graphs {
@@ -232,6 +235,163 @@ public class Graphs {
 				}
 			}
 		}
+	}
+
+	public boolean isConnected() {
+		LinkedList<Vertex> queue = new LinkedList<>();
+		Collection<Vertex> vtces = this.vtces.values();
+		HashMap<Vertex, Boolean> explored = new HashMap<>();
+		queue.add((Vertex) vtces.toArray()[0]);
+		while (!queue.isEmpty()) {
+			Vertex rv = queue.remove();
+			if (!explored.containsKey(rv)) {
+				explored.put(rv, true);
+				// System.out.print(rv.name);
+				Set<Vertex> nbrs = rv.nbrs.keySet();
+				for (Vertex nbr : nbrs) {
+					if (!explored.containsKey(nbr)) {
+						queue.add(nbr);
+					}
+				}
+			}
+		}
+
+		return this.vtces.size() == explored.size();
+
+	}
+
+	public ArrayList<ArrayList<String>> getCC() {
+		ArrayList<ArrayList<String>> ans = new ArrayList<>();
+		LinkedList<Vertex> queue = new LinkedList<>();
+		Collection<Vertex> vtces = this.vtces.values();
+		HashMap<Vertex, Boolean> explored = new HashMap<>();
+		for (Vertex vtx : vtces) {
+			ArrayList<String> cc = new ArrayList<>();
+			if (!explored.containsKey(vtx)) {
+				queue.add(vtx);
+			}
+			while (!queue.isEmpty()) {
+				Vertex rv = queue.removeFirst();
+				if (!explored.containsKey(rv)) {
+					explored.put(rv, true);
+					cc.add(rv.name);
+					Set<Vertex> nbrs = rv.nbrs.keySet();
+					for (Vertex nbr : nbrs) {
+						if (!explored.containsKey(nbr)) {
+							queue.add(nbr);
+						}
+					}
+				}
+			}
+			if (cc.size() != 0) {
+				ans.add(cc);
+			}
+		}
+
+		return ans;
+
+	}
+
+	public boolean isBipartite() {
+		HashMap<Vertex, String> explored = new HashMap<>();
+		LinkedList<Pair> stack = new LinkedList<>();
+		Collection<Vertex> vtces = this.vtces.values();
+		for (Vertex vtx : vtces) {
+			if (!explored.containsKey(vtx)) {
+				Pair p = new Pair();
+				p.vtx = vtx;
+				p.vtxcolor = "Red";
+				p.reason = null;
+				stack.addFirst(p);
+			}
+			while (!stack.isEmpty()) {
+				Pair rp = stack.removeFirst();
+				if (!explored.containsKey(rp.vtx)) {
+					explored.put(rp.vtx, rp.vtxcolor);
+					Set<Vertex> nbrs = rp.vtx.nbrs.keySet();
+					for (Vertex nbr : nbrs) {
+						if (!explored.containsKey(nbr)) {
+							Pair nbpair = new Pair();
+							nbpair.vtx = nbr;
+							nbpair.reason = rp.vtx;
+							if (rp.vtxcolor.equals("Red")) {
+								nbpair.vtxcolor = "Green";
+							} else {
+								nbpair.vtxcolor = "Red";
+							}
+							stack.addFirst(nbpair);
+						} else {
+							if (rp.vtxcolor.equals(explored.get(nbr))) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+		return true;
+	}
+
+	private class Pair {
+		Vertex vtx;
+		String vtxcolor;
+		Vertex reason;
+	}
+	
+	
+	public void Dijkstra(String source, String dest) {
+
+		Queue<Vertex> queue = new LinkedList<>();
+		HashMap<String, Integer> distance = new HashMap<>();
+		HashMap<String, Vertex> selected = new HashMap<>();
+
+		Vertex vtx1 = vtces.get(source);
+		distance.put(source, 0);
+		queue.add(vtx1);
+
+		while (!queue.isEmpty()) {
+			Vertex temp = queue.remove();
+			selected.put(temp.name, temp);
+
+			Vertex next = temp;
+			int minval = Integer.MAX_VALUE;
+
+			Set<Entry<Vertex, Integer>> entries = temp.nbrs.entrySet();
+			for (Entry<Vertex, Integer> e : entries) {
+				if (!selected.containsKey(e.getKey().name)) {
+					if (distance.containsKey(e.getKey().name)) {
+						int predis = distance.get(e.getKey().name);
+						int newdis = distance.get(temp.name) + e.getValue();
+
+						if (predis > newdis) {
+							distance.put(e.getKey().name, newdis);
+						}
+
+					} else {
+
+						int newdis = distance.get(temp.name) + e.getValue();
+						distance.put(e.getKey().name, newdis);
+
+					}
+
+					if (minval > distance.get(e.getKey().name)) {
+						next = e.getKey();
+						minval = distance.get(e.getKey().name);
+					}
+
+				}
+
+			}
+
+			if (next != temp)
+				queue.add(next);
+
+		}
+
+		System.out.println(distance.get(dest));
+
 	}
 
 }
